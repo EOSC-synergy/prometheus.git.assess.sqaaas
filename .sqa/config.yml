@@ -1,0 +1,66 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: main
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/prometheus/prometheus:
+      branch: main
+      repo: https://github.com/prometheus/prometheus.git
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/prometheus/prometheus git:
+        commands:
+        - /usr/bin/env sh .sqa/script.woozy-cerulean-termite.sh
+        container: qc.acc_wheezy-pear-tiger
+  QC.Doc:
+    repos:
+      github.com/prometheus/prometheus find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.cloudy-rose-heron.sh
+        container: qc.doc_sunny-rose-bloodhound
+      github.com/prometheus/prometheus git:
+        commands:
+        - /usr/bin/env sh .sqa/script.skanky-aquamarine-tamarin.sh
+        container: qc.doc_stinky-indigo-manatee
+      github.com/prometheus/prometheus markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.freaky-jade-badger.sh
+        container: qc.doc_flimsy-purple-elephant
+  QC.Lic:
+    repos:
+      github.com/prometheus/prometheus licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.crappy-lilac-dodo.sh
+        container: qc.lic_cranky-maroon-anteater
+  QC.Sec:
+    repos:
+      github.com/prometheus/prometheus gosec:
+        commands:
+        - /usr/bin/env sh .sqa/script.blurry-pink-impala.sh
+        container: qc.sec_zippy-tan-angora
+  QC.Sty:
+    repos:
+      github.com/prometheus/prometheus hadolint:
+        commands:
+        - /usr/bin/env sh .sqa/script.hazy-amaranth-kakapo.sh
+        container: qc.sty_foggy-yellow-macaque
+      github.com/prometheus/prometheus jsonlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.trippy-sangria-chamois.sh
+        container: qc.sty_flimsy-ultramarine-whale
+      github.com/prometheus/prometheus staticcheck:
+        commands:
+        - /usr/bin/env sh .sqa/script.skanky-gamboge-dunker.sh
+        container: qc.sty_skanky-saffron-tzu
+  QC.Ver:
+    repos:
+      github.com/prometheus/prometheus get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.cheeky-blue-oyster.sh
+        container: qc.ver_lousy-olivine-lion
+timeout: 5400
